@@ -9,7 +9,7 @@ var fs = require('fs');
 var installer = require('./installer');
 var iri = require('./iri');
 var nelson = require('./nelson');
-var field = require('./field');
+// const field = require('./field');
 var system = require('./system');
 var settings = require('./settings');
 
@@ -32,8 +32,8 @@ var Controller = function () {
             iri: [],
             system: [],
             database: [],
-            nelson: [],
-            field: []
+            nelson: []
+            // field: []
         };
         var targetDir = this.opts.targetDir || path.join(process.cwd(), 'data');
         if (!fs.existsSync(targetDir)) {
@@ -113,15 +113,13 @@ var Controller = function () {
                     return _this2.message('nelson', message);
                 }
             });
-            this.field = new field.Field({
-                name: this.settings.settings.name,
-                seed: this.settings.settings.seed,
-                address: this.settings.settings.address,
-                iriPort: this.settings.settings.iriPort,
-                onMessage: function onMessage(message) {
-                    return _this2.message('field', message);
-                }
-            });
+            // this.field = new field.Field({
+            //   name: this.settings.settings.name,
+            //   seed: this.settings.settings.seed,
+            //   address: this.settings.settings.address,
+            //   iriPort: this.settings.settings.iriPort,
+            //   onMessage: (message) => this.message('field', message)
+            // })
         }
     }, {
         key: 'tick',
@@ -169,7 +167,9 @@ var Controller = function () {
                 _this4.checkSystem().then(function (ready) {
                     if (ready) {
                         Promise.all([_this4.install('iri'), _this4.install('database')]).then(function () {
-                            Promise.all([_this4.startIRI(), _this4.startNelson(), _this4.startField()]).then(function () {
+                            Promise.all([_this4.startIRI(), _this4.startNelson()]
+                            // this.startField()
+                            ).then(function () {
                                 _this4.updater = setInterval(function () {
                                     return _this4.tick();
                                 }, 5000);
@@ -201,10 +201,10 @@ var Controller = function () {
             this.updateState('iri', { status: 'stopped' });
             return this.nelson.stop().then(function () {
                 _this5.updateState('nelson', { status: 'stopped' });
-                return _this5.field.stop().then(function () {
-                    _this5.updateState('field', { status: 'stopped' });
-                    return true;
-                });
+                // return this.field.stop().then(() => {
+                //   this.updateState('field', { status: 'stopped' });
+                return true;
+                // });
             });
         }
     }, {
@@ -259,39 +259,37 @@ var Controller = function () {
                 });
             });
         }
-    }, {
-        key: 'startField',
-        value: function startField() {
-            var _this9 = this;
 
-            this.updateState('field', { status: 'starting' });
-            return new Promise(function (resolve) {
-                _this9.field.start().then(function () {
-                    _this9.updateState('field', { status: 'running', info: _this9.field.getFieldInfo() });
-                    resolve();
-                });
-            });
-        }
+        // startField () {
+        //     this.updateState('field', { status: 'starting' });
+        //     return new Promise((resolve) => {
+        //         this.field.start().then(() => {
+        //             this.updateState('field', { status: 'running', info: this.field.getFieldInfo() });
+        //             resolve();
+        //         });
+        //     });
+        // }
+
     }, {
         key: 'checkSystem',
         value: function checkSystem() {
-            var _this10 = this;
+            var _this9 = this;
 
             this.updateState('system', { status: 'checking' });
             return this.system.hasEnoughSpace(this.databaseInstaller.isInstalled()).then(function (hasEnoughSpace) {
-                _this10.updateState('system', { hasEnoughSpace: hasEnoughSpace });
-                return _this10.system.hasJavaInstalled();
+                _this9.updateState('system', { hasEnoughSpace: hasEnoughSpace });
+                return _this9.system.hasJavaInstalled();
             }).then(function (hasJavaInstalled) {
-                _this10.updateState('system', { hasJavaInstalled: hasJavaInstalled });
+                _this9.updateState('system', { hasJavaInstalled: hasJavaInstalled });
             }).then(function () {
-                var _state$system = _this10.state.system,
+                var _state$system = _this9.state.system,
                     hasEnoughSpace = _state$system.hasEnoughSpace,
                     hasJavaInstalled = _state$system.hasJavaInstalled;
 
-                var isSupportedPlatform = _this10.system.isSupportedPlatform();
-                var hasEnoughMemory = _this10.system.hasEnoughMemory();
+                var isSupportedPlatform = _this9.system.isSupportedPlatform();
+                var hasEnoughMemory = _this9.system.hasEnoughMemory();
                 var isReady = isSupportedPlatform && hasEnoughMemory && hasEnoughSpace && hasJavaInstalled;
-                _this10.updateState('system', {
+                _this9.updateState('system', {
                     status: isReady ? 'ready' : 'error',
                     isSupportedPlatform: isSupportedPlatform,
                     hasEnoughMemory: hasEnoughMemory,
@@ -303,7 +301,7 @@ var Controller = function () {
     }, {
         key: 'install',
         value: function install(component) {
-            var _this11 = this;
+            var _this10 = this;
 
             var installer = null;
             switch (component) {
@@ -317,16 +315,16 @@ var Controller = function () {
             this.updateState(component, { status: 'checking' });
             return new Promise(function (resolve, reject) {
                 if (installer.isInstalled()) {
-                    _this11.updateState(component, { status: 'ready' });
+                    _this10.updateState(component, { status: 'ready' });
                     resolve();
                 } else {
                     installer.install(function (progress) {
-                        return _this11.updateState(component, { status: 'downloading', progress: progress });
+                        return _this10.updateState(component, { status: 'downloading', progress: progress });
                     }, function () {
-                        _this11.updateState(component, { status: 'ready' });
+                        _this10.updateState(component, { status: 'ready' });
                         resolve();
                     }, function (error) {
-                        _this11.updateState(component, { status: 'error', error: error.message });
+                        _this10.updateState(component, { status: 'error', error: error.message });
                         installer.uninstall();
                         reject(error);
                     });
