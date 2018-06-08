@@ -3,7 +3,7 @@ const fs = require('fs');
 const installer = require('./installer');
 const iri = require('./iri');
 const nelson = require('./nelson');
-const field = require('./field');
+// const field = require('./field');
 const system = require('./system');
 const settings = require('./settings');
 
@@ -23,7 +23,7 @@ class Controller {
             system: [],
             database: [],
             nelson: [],
-            field: []
+            // field: []
         };
         const targetDir = this.opts.targetDir || path.join(process.cwd(), 'data');
         if (!fs.existsSync(targetDir)) {
@@ -91,13 +91,13 @@ class Controller {
             },
             onMessage: (message) => this.message('nelson', message)
         });
-        this.field = new field.Field({
-          name: this.settings.settings.name,
-          seed: this.settings.settings.seed,
-          address: this.settings.settings.address,
-          iriPort: this.settings.settings.iriPort,
-          onMessage: (message) => this.message('field', message)
-        })
+        // this.field = new field.Field({
+        //   name: this.settings.settings.name,
+        //   seed: this.settings.settings.seed,
+        //   address: this.settings.settings.address,
+        //   iriPort: this.settings.settings.iriPort,
+        //   onMessage: (message) => this.message('field', message)
+        // })
     }
 
     tick () {
@@ -139,7 +139,7 @@ class Controller {
                         Promise.all([
                             this.startIRI(),
                             this.startNelson(),
-                            this.startField()
+                            // this.startField()
                         ]).then(() => {
                             this.updater = setInterval(() => this.tick(), 5000);
                             resolve();
@@ -167,10 +167,10 @@ class Controller {
         this.updateState('iri', { status: 'stopped' });
         return this.nelson.stop().then(() => {
             this.updateState('nelson', { status: 'stopped' });
-            return this.field.stop().then(() => {
-              this.updateState('field', { status: 'stopped' });
+            // return this.field.stop().then(() => {
+            //   this.updateState('field', { status: 'stopped' });
               return true;
-            });
+            // });
         })
     }
 
@@ -217,15 +217,15 @@ class Controller {
         });
     }
 
-    startField () {
-        this.updateState('field', { status: 'starting' });
-        return new Promise((resolve) => {
-            this.field.start().then(() => {
-                this.updateState('field', { status: 'running', info: this.field.getFieldInfo() });
-                resolve();
-            });
-        });
-    }
+    // startField () {
+    //     this.updateState('field', { status: 'starting' });
+    //     return new Promise((resolve) => {
+    //         this.field.start().then(() => {
+    //             this.updateState('field', { status: 'running', info: this.field.getFieldInfo() });
+    //             resolve();
+    //         });
+    //     });
+    // }
 
     checkSystem () {
         this.updateState('system', { status: 'checking' });
