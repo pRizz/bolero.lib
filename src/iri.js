@@ -91,7 +91,8 @@ TESTNET = false
 RESCAN_DB = false
 API_HOST = ${this.opts.isPublic ? '0.0.0.0' : '127.0.0.1'}
 REMOTE_LIMIT_API="removeNeighbors, addNeighbors, interruptAttachingToTangle, attachToTangle, getNeighbors"
-        `);
+ZMQ_ENABLED = true
+        `); // TODO: make ZMQ optional
         return filename
     }
 }
