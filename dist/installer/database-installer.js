@@ -25,7 +25,7 @@ var _require = require('./base-installer'),
 var DEFAULT_OPTIONS = {
     name: 'db',
     source: 'http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz',
-    databaseVersion: '1.5.0',
+    databaseVersion: '1.5.1',
     onMessage: function onMessage(message) {}
 };
 
