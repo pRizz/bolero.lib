@@ -16,7 +16,7 @@ var _require2 = require('./base-package-installer'),
 
 var DEFAULT_OPTIONS = {
     name: 'iri',
-    latestVersion: '1.5.1',
+    latestVersion: '1.5.2',
     emulateWindows: false,
     repo: {
         owner: 'iotaledger',

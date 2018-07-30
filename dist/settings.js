@@ -13,7 +13,7 @@ var DEFAULT_FIELD_OPTIONS = require('./field').DEFAULT_OPTIONS;
 
 var DEFAULT_SETTINGS = {
     version: 0,
-    databaseVersion: '1.5.1',
+    databaseVersion: '1.5.2',
     iriPort: DEFAULT_IRI_OPTIONS.port,
     iriPublic: DEFAULT_IRI_OPTIONS.isPublic,
     name: DEFAULT_NELSON_OPTIONS.name,
