@@ -11,7 +11,7 @@ const { BaseInstaller } = require('./base-installer');
 const DEFAULT_OPTIONS = {
     name: 'db',
     source: 'http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz',
-    databaseVersion: '1.5.2',
+    databaseVersion: '1.5.3',
     onMessage: (message) => {}
 };
 

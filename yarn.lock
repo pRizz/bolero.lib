@@ -1714,7 +1714,7 @@ fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"
 
-field.cli@^0.1.5:
+field.cli@0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/field.cli/-/field.cli-0.1.5.tgz#4fec6ae8045d694896e1f7d2ab111e380573ebe9"
   dependencies:
