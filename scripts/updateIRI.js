@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-// /repos/:owner/:repo/releases/latest
-
-// const http = require('http')
 const axios = require('axios')
 const fs = require('fs')
 const path = require('path')
