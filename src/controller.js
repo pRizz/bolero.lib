@@ -121,10 +121,10 @@ class Controller {
                 getNelsonInfo();
             });
         } else if (this.state.iri.status === 'error') {
-            this.message('iri', 'IRI seems down, trying to restart in 5 seconds...');
+            this.message('iri', 'IRI seems down, trying to restart in 2 seconds...');
             this.iri.stop();
             getNelsonInfo();
-            setTimeout(() => this.iri.start(), 5000);
+            setTimeout(() => this.iri.start(), 2000);
         }
     }
 

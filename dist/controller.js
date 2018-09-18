@@ -150,12 +150,12 @@ var Controller = function () {
                     getNelsonInfo();
                 });
             } else if (this.state.iri.status === 'error') {
-                this.message('iri', 'IRI seems down, trying to restart in 5 seconds...');
+                this.message('iri', 'IRI seems down, trying to restart in 2 seconds...');
                 this.iri.stop();
                 getNelsonInfo();
                 setTimeout(function () {
                     return _this3.iri.start();
-                }, 5000);
+                }, 2000);
             }
         }
     }, {
