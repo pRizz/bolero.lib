@@ -10,7 +10,7 @@ var child_process = require('child_process');
 
 var DEFAULT_OPTIONS = {
     minimalMemory: 3600, //MB
-    minimalSpace: 8000, //MB
+    minimalSpace: 3000, //MB
     supportedPlatform: ['linux', 'darwin', 'win32'],
     onMessage: function onMessage(message) {}
 };
