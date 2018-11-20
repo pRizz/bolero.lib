@@ -108,7 +108,7 @@ class Controller {
                 this.updateCounter += 1;
             } else if (this.state.nelson.status === 'error') {
                 this.message('nelson', 'Service seems down, trying to restart...');
-                setTimeout(() => this.nelson.stop().then(() => this.nelson.start()), 5000);
+                setTimeout(() => this.nelson.stop().then(() => this.nelson.start()), 6000);
             }
         };
         if (this.state.iri.status === 'running') {
@@ -121,10 +121,10 @@ class Controller {
                 getNelsonInfo();
             });
         } else if (this.state.iri.status === 'error') {
-            this.message('iri', 'IRI seems down, trying to restart in 2 seconds...');
+            this.message('iri', 'IRI seems down, trying to restart in 7 seconds...');
             this.iri.stop();
             getNelsonInfo();
-            setTimeout(() => this.iri.start(), 2000);
+            setTimeout(() => this.iri.start(), 7000);
         }
     }
 

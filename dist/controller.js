@@ -137,7 +137,7 @@ var Controller = function () {
                         return _this3.nelson.stop().then(function () {
                             return _this3.nelson.start();
                         });
-                    }, 5000);
+                    }, 6000);
                 }
             };
             if (this.state.iri.status === 'running') {
@@ -150,12 +150,12 @@ var Controller = function () {
                     getNelsonInfo();
                 });
             } else if (this.state.iri.status === 'error') {
-                this.message('iri', 'IRI seems down, trying to restart in 2 seconds...');
+                this.message('iri', 'IRI seems down, trying to restart in 7 seconds...');
                 this.iri.stop();
                 getNelsonInfo();
                 setTimeout(function () {
                     return _this3.iri.start();
-                }, 2000);
+                }, 7000);
             }
         }
     }, {
