@@ -3,7 +3,7 @@ const { BasePackageInstaller } = require('./base-package-installer');
 
 const DEFAULT_OPTIONS = {
     name: 'iri',
-    latestVersion: '1.6.0-RELEASE',
+    latestVersion: '1.7.0-RELEASE',
     emulateWindows: false,
     repo: {
         owner: 'iotaledger',
